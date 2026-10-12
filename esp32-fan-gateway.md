@@ -2,6 +2,9 @@
 
 > 本仓库（Arduino-STM32-Dev/esp32）的固件说明。
 > 链路：**树莓派 → MQTT → ESP32 → UART → STM32F103**。
+>
+> 📌 本篇是**较早的简明网关版**（阻塞式重连、无断网缓存）。
+> 带 **SPIFFS 断网缓存 + 非阻塞队列**的当前版本，见 [**docs/01 · 断网缓存与非阻塞队列**](docs/01_OFFLINE_CACHE_AND_QUEUE.md)。
 
 ## 一、功能
 

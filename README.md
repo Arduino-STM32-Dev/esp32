@@ -47,11 +47,12 @@
 
 **数据流：** `树莓派 → MQTT(pi/to/esp32) → ESP32 → SerialSTM → STM32 → 执行动作 → 回传 → ESP32 → MQTT(home/fan/status) → 树莓派`
 
-**两级固件：**
+**三个固件版本：**
 
 | 固件 | 定位 | 特点 |
 | --- | --- | --- |
 | [`firmware/esp32_test`](firmware/esp32_test/esp32_test.ino) | **基础网关**（第一版） | 连接 WiFi / MQTT，指令转发 + 状态上报，逻辑最简单，适合先跑通链路 |
+| [`firmware/esp32_fan_gateway`](firmware/esp32_fan_gateway/esp32_fan_gateway.ino) | **简明网关**（早期并行版本） | 与基础版同级的最小实现，配套说明见 [esp32-fan-gateway.md](esp32-fan-gateway.md) |
 | [`firmware/cache_control`](firmware/cache_control/cache_control.ino) | **工业级网关**（当前版本） | 在基础版之上增加：**非阻塞队列**、**SPIFFS 断网缓存**、**恢复补发**、**非阻塞重连**、**接收缓冲区扩容** |
 
 ---
@@ -180,9 +181,12 @@ esp32/
 ├── README.md                          ← 你正在读的这份文档
 ├── LICENSE                            ← MIT 许可证
 ├── .gitignore / .gitattributes
+├── esp32-fan-gateway.md               ← 简明网关说明（早期并行版本）
 ├── firmware/
 │   ├── esp32_test/                    ← 基础网关：MQTT ↔ UART 双向转发
 │   │   └── esp32_test.ino
+│   ├── esp32_fan_gateway/             ← 简明网关（早期并行版本）
+│   │   └── esp32_fan_gateway.ino
 │   └── cache_control/                 ← 工业级网关：队列 + SPIFFS 断网缓存 + 补发
 │       └── cache_control.ino
 ├── docs/
@@ -252,6 +256,7 @@ esp32/
 | 篇 | 内容 | 文档 |
 | :---: | --- | --- |
 | **01** | 非阻塞队列 · SPIFFS 断网缓存 · 恢复补发 · 缓冲区扩容 · 三大踩坑实录 | [📄 断网缓存与非阻塞队列](docs/01_OFFLINE_CACHE_AND_QUEUE.md) |
+| — | （早期简明版）MQTT ⇄ UART 网关说明 | [📄 esp32-fan-gateway.md](esp32-fan-gateway.md) |
 
 ---
 
